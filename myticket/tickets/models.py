@@ -10,10 +10,12 @@ class Ticket(models.Model):
     departamento = models.TextField(max_length=200, verbose_name='departamento')
     estado = models.CharField(max_length=100, verbose_name='estado')
     fecha = models.DateTimeField(default=now, verbose_name='fecha')
+    importancia = models.TextField(max_length=200, verbose_name='importancia')
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 def __str__(self):
     text = "{0}({})"
-    return text.fromart(self.titulo, self.asunto, self.descripcion, self.departamento, self.estado, self.fecha)
+    return text.fromart(self.titulo, self.asunto, self.descripcion, self.departamento, self.estado, self.fecha, self.importancia)
     
