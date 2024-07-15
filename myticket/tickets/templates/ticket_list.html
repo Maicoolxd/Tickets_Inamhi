@@ -1,0 +1,77 @@
+{% extends "./main.html" %}
+{% block title %}Gestion de tickets{% endblock %}
+{% block body %}
+<h1>Inicio</h1>
+        <h1>Gestion de tickets</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'registrarticket' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="titulo" name="titulo" class="form-control" value="{{ form.titulo.value }}" placeholder="Titulo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="asunto" name="asunto" class="form-control" value="{{ form.asunto.value }}" placeholder="Asunto" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="descripcion" name="descripcion" class="form-control" value="{{ form.descripcion.value }}" placeholder="Descripcion" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="departamento" name="departamento" class="form-control" value="{{ form.departamento.value }}" placeholder="Departamento" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="estado" name="estado" class="form-control" value="{{ form.estado.value }}" placeholder="Estado" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="fecha" name="fecha" class="form-control" value="{{ form.fecha.value }}" placeholder="Fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="importancia">Importancia</label><br>
+                        <input type="radio" id="alto" name="importancia" value="alto" {% if form.importancia.value == "alto" %}checked{% endif %}>
+                        <label for="alto">Alto</label><br>
+                        <input type="radio" id="medio" name="importancia" value="medio" {% if form.importancia.value == "medio" %}checked{% endif %}>
+                        <label for="medio">Medio</label><br>
+                        <input type="radio" id="bajo" name="importancia" value="bajo" {% if form.importancia.value == "bajo" %}checked{% endif %}>
+                        <label for="bajo">Bajo</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Asunto</th>
+                        <th>Descripcion</th>
+                        <th>Departamento</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Importancia</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in tickets %}
+                    <tr>
+                        <td>{{ t.titulo }}</td>
+                        <td>{{ t.asunto }}</td>
+                        <td>{{ t.descripcion }}</td>
+                        <td>{{ t.departamento }}</td>
+                        <td>{{ t.estado }}</td>
+                        <td>{{ t.fecha }}</td>
+                        <td>{{ t.importancia }}</td>
+                        <td><a href="{% url 'editarticket' t.id %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'eliminarticket' t.id %}" class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
