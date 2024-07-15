@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Ticket</title>
+</head>
+<body>
+    <h1>Editar Ticket</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" value="{{ ticket.titulo }}" required>
+        </div>
+        <div>
+            <label for="asunto">Asunto:</label>
+            <input type="text" id="asunto" name="asunto" value="{{ ticket.asunto }}" required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" value="{{ ticket.descripcion }}" required>
+        </div>
+        <div>
+            <label for="departamento">Departamento:</label>
+            <input type="text" id="departamento" name="departamento" value="{{ ticket.departamento }}" required>
+        </div>
+        <div>
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" name="estado" value="{{ ticket.estado }}" required>
+        </div>
+        <div>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" value="{{ ticket.fecha|date:'Y-m-d' }}" required>
+        </div>
+        <div>
+            <label for="importancia">Importancia:</label>
+            <input type="radio" id="alta" name="importancia" value="alta" {% if ticket.importancia == 'alta' %}checked{% endif %}> Alta
+            <input type="radio" id="media" name="importancia" value="media" {% if ticket.importancia == 'media' %}checked{% endif %}> Media
+            <input type="radio" id="baja" name="importancia" value="baja" {% if ticket.importancia == 'baja' %}checked{% endif %}> Baja
+        </div>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <a href="{% url 'ticket_list' %}">Regresar </a>
+</body>
+</html>
